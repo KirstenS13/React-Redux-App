@@ -1,8 +1,12 @@
 import React from 'react';
 
-const Search = () => {
+//import connect
+import { connect } from 'react-redux';
+
+const Search = (props) => {
     return (
         <div>
+            <p>{props.test}</p>
             <form>
                 <label htmlFor='work-search'>
                     Search by keyword, title, or author
@@ -13,9 +17,20 @@ const Search = () => {
                         id='work-search'
                     />
                 </label>
+                <button>Search</button>
             </form>
         </div>
     )
 };
 
-export default Search;
+const mapStateToProps = state => {
+    return {
+        test: state.test
+    }
+};
+
+const mapDispatchToProps = {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
