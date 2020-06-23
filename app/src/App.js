@@ -1,7 +1,17 @@
 import React from 'react';
 import './App.css';
 
+//import createStore
+import { createStore } from 'redux';
+
+//import reducer
+import { reducer } from './reducers';
+
+//import components
 import Search from './components/Search';
+
+//create store
+export const store = createStore(reducer);
 
 function App() {
   return (
@@ -11,6 +21,6 @@ function App() {
       <Search />
     </div>
   );
-}
+};
 
 export default App;
