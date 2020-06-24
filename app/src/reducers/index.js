@@ -1,8 +1,7 @@
 import { SEARCH_FOR_TERM_START, SEARCH_FOR_TERM_SUCCESS } from "../actions"
 
 const initialState = {
-    test: "this is a test",
-    res: {},
+    results: [],
     isFetching: false,
     error: ""
 }
@@ -16,9 +15,10 @@ export const reducer = (state = initialState, action) => {
                 error: ""
             };
         case SEARCH_FOR_TERM_SUCCESS:
+            console.log('action.payload', action.payload)
             return {
                 ...state,
-                res: action.payload,
+                results: action.payload,
                 isFetching: false
             };
         default:

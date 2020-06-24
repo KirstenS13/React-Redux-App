@@ -12,6 +12,7 @@ import { reducer } from './reducers';
 
 //import components
 import Search from './components/Search';
+import CardList from './components/CardList';
 
 //create store
 export const store = createStore(reducer, applyMiddleware(thunk));
@@ -22,6 +23,7 @@ function App() {
       <h1>Welcome to the Author Page</h1>
       <p>Find a collection of works based on author, keyword, or title!</p>
       <Search />
+      <CardList />
     </div>
   );
 };
