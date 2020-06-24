@@ -8,7 +8,7 @@ export const searchForTerm = searchTerm => dispatch => {
     console.log("searchForTerm action creator");
     dispatch({type: SEARCH_FOR_TERM_START});
     axios
-        .get(`https://reststop.randomhouse.com/resources/works?keyword=${searchTerm}`)
+        .get(`https://reststop.randomhouse.com/resources/works/?start=0&max=15&expandLevel=1&search=${searchTerm}`, "works")
         .then(res => {
             console.log('res', res);
             dispatch({type: SEARCH_FOR_TERM_SUCCESS, payload: res})
