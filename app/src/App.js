@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
 
-//import createStore
-import { createStore } from 'redux';
+//import thunk
+import thunk from 'redux-thunk';
+
+//import createStore and applyMiddleware
+import { createStore, applyMiddleware } from 'redux';
 
 //import reducer
 import { reducer } from './reducers';
@@ -11,7 +14,7 @@ import { reducer } from './reducers';
 import Search from './components/Search';
 
 //create store
-export const store = createStore(reducer);
+export const store = createStore(reducer, applyMiddleware(thunk));
 
 function App() {
   return (
