@@ -7,37 +7,52 @@ import { connect } from 'react-redux';
 import { searchForTerm } from '../actions';
 
 const Search = (props) => {
-    const [searchTerm, setSearchTerm] = useState();
+    const [formState, setFormState] = useState({
+        searchTerm: "",
+        resultsAmount: ""
+    });
 
     const handleChanges = e => {
-        setSearchTerm(e.target.value);
+        setFormState({...formState, [e.target.name]: e.target.value});
         console.log("typing");
     };
 
-    const submitSearchTerm = e => {
+    const submitSearch = e => {
         e.preventDefault();
-        props.searchForTerm(searchTerm);
-        setSearchTerm("");
+        props.searchForTerm(formState);
+        setFormState({searchTerm: "", resultsAmount: ""});
         console.log("submitted!!!");
     }
 
     return (
         <div>
             <p>{props.test}</p>
-            <form onSubmit={submitSearchTerm}>
-                <label htmlFor='work-search'>
+            <form onSubmit={submitSearch}>
+                <label htmlFor='searchTerm'>
                     Search by keyword, title, or author
                     <input 
                         type='text'
                         placeholder='enter search term...'
-                        name='work-search'
-                        id='work-search'
-                        value={searchTerm}
+                        name='searchTerm'
+                        id='searchTerm'
+                        value={formState.searchTerm}
+                        onChange={handleChanges}
+                    />
+                </label>
+                <label htmlFor='resultsAmount'>
+                    Number of Results
+                    <input
+                        type='number'
+                        name='resultsAmount'
+                        id='resultsAmount'
+                        min='0'
+                        max='100'
+                        placeholder='Number 0 - 100'
+                        value={formState.resultsAmount}
                         onChange={handleChanges}
                     />
                 </label>
                 <button>Search</button>
-                <p>Search Term: {searchTerm}</p>
             </form>
         </div>
     )
