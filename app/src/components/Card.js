@@ -29,7 +29,7 @@ const Div = styled.div`
   justify-content: ${props => props.app ? "center" : "space-between" };
   align-items: ${props => props.app ? "center" : null};
   box-sizing: border-box;
-  font-family: ${props => props.app ? "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" : null};
+  font-family: ${props => props.app ? "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" : null};
   background-color: #011936;
   color: white;
   border: ${props => {
@@ -46,12 +46,13 @@ const Div = styled.div`
 const P = styled.p`
   padding: 10px;
   margin: 5px;
-  text-align: ${props => props.error ? "center" : "left"};
+  text-align: ${props => props.error || props.number ? "center" : "left"};
 `
 
 const Card = props => {
     return (
         <Div card>
+            <P number>Result {props.resultNumber}</P>
             <Div info>
                 <h2 className="heading">Title: </h2>
                 <h2>{props.title}</h2>

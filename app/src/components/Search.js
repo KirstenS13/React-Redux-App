@@ -11,13 +11,13 @@ import { searchForTerm } from '../actions';
 
 //styles
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: fit-content;
-  margin: auto;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: auto;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
 `
 
 const Input = styled.input`
@@ -36,10 +36,16 @@ const Button = styled.button`
     color: #FCBF49;
 `
 
+const P = styled.p`
+  padding: 10px;
+  margin: 5px;
+  text-align: ${props => props.error || props.number ? "center" : "left"};
+`
+
 const Search = (props) => {
     const [formState, setFormState] = useState({
         searchTerm: "",
-        resultsAmount: ""
+        resultsAmount: 1
     });
 
     const handleChanges = e => {
@@ -65,7 +71,7 @@ const Search = (props) => {
                 value={formState.searchTerm}
                 onChange={handleChanges}
             />
-            <label htmlFor='resultsAmount'>Number of Results</label>
+            <label htmlFor='resultsAmount'>Number of Results(1 - 100)</label>
             <Input
                 type='number'
                 name='resultsAmount'
@@ -77,13 +83,14 @@ const Search = (props) => {
                 onChange={handleChanges}
             />
             <Button>Search</Button>
+            {props.isFetching ? <P>Loading...</P> : null}
         </Form>
     )
 };
 
 const mapStateToProps = state => {
     return {
-        test: state.test
+        isFetching: state.isFetching
     }
 };
 

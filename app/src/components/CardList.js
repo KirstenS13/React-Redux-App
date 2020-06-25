@@ -31,7 +31,7 @@ const Div = styled.div`
   justify-content: ${props => props.app ? "center" : "space-between" };
   align-items: ${props => props.app ? "center" : null};
   box-sizing: border-box;
-  font-family: ${props => props.app ? "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" : null};
+  font-family: ${props => props.app ? "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" : null};
   background-color: #011936;
   color: white;
   border: ${props => {
@@ -55,37 +55,11 @@ const CardList = props => {
     console.log("props.results", props.results);
     return (
         <Div>
-            {/* {props.results ? 
-                ((typeof props.results === "object") ? 
-                    <Card 
-                        key={props.results.workid}
-                        title={props.results.titleweb}
-                        author={props.results.authorweb}
-                        releaseDate={props.results.onsaledate}
-                        description={props.results.rgcopy}
-                        review={props.results.rgabout}
-                        authorBio={props.results.rgauthbio}
-                    /> : 
-                    props.results.map(result => {
-                        return (
-                            <Card 
-                                key={result.workid}
-                                title={result.titleweb}
-                                author={result.authorweb}
-                                releaseDate={result.onsaledate}
-                                description={result.rgcopy}
-                                review={result.rgabout}
-                                authorBio={result.rgauthbio}
-                            />
-                        )
-                    })
-                ) :
-                <P error>There were no results for that search term. Please try a different term.</P>
-            } */}
-            {props.results ? 
-                (Array.isArray(props.results) === true ?
-                     (props.results.length > 0 ?
-                        props.results.map(result => {
+            {props.results ? //does a result exist?
+                (Array.isArray(props.results) === true ? //is the result an array?
+                     (props.results.length > 0 ? //is the result an empty array?
+                        props.results.map((result, index) => {
+                            //the result is not an empty array
                             return (
                                 <Card 
                                     key={result.workid}
@@ -95,11 +69,14 @@ const CardList = props => {
                                     description={result.rgcopy}
                                     review={result.rgabout}
                                     authorBio={result.rgauthbio}
+                                    resultNumber={index + 1}
                                 />
                             )
                         }) :
+                            //the result is an empty array
                             null
-                        ) :
+                        ) : 
+                            // the result is not an array
                             <Card 
                                 key={props.results.workid}
                                 title={props.results.titleweb}
@@ -108,8 +85,10 @@ const CardList = props => {
                                 description={props.results.rgcopy}
                                 review={props.results.rgabout}
                                 authorBio={props.results.rgauthbio}
+                                resultNumber="1"
                             />
                         ) : 
+                // The result does not exist
                 <P error>There were no results for that search term. Please try a different term.</P>
             }
         </Div>

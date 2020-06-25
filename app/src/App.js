@@ -10,6 +10,9 @@ import thunk from 'redux-thunk';
 //import createStore and applyMiddleware
 import { createStore, applyMiddleware } from 'redux';
 
+//import connect
+import { connect } from 'react-redux';
+
 //import reducer
 import { reducer } from './reducers';
 
@@ -45,7 +48,7 @@ const Div = styled.div`
   justify-content: ${props => props.app ? "center" : "space-between" };
   align-items: ${props => props.app ? "center" : null};
   box-sizing: border-box;
-  font-family: ${props => props.app ? "'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" : null};
+  font-family: ${props => props.app ? "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif" : null};
   background-color: #011936;
   color: white;
   border: ${props => {
@@ -59,18 +62,33 @@ const Div = styled.div`
   border-radius: ${props => (props.app || props.card) ? "5px" : "none"};
 `
 
+const P = styled.p`
+  padding: 10px;
+  margin: 5px;
+  text-align: ${props => props.error || props.number ? "center" : "left"};
+`
+
 //create store
 export const store = createStore(reducer, applyMiddleware(thunk));
 
-function App() {
+function App(props) {
+  console.log("props in App", props);
   return (
     <Div className="App" app>
       <h1>Welcome to the Book Page</h1>
-      <p>Find a collection of works based on author, keyword, or title!</p>
+      <P>Find a collection of works based on author, keyword, or title!</P>
       <Search />
+      {/* is result an array?           is result not an empty array?      result is not an empty array          empty     result is not an array  */}
+      {Array.isArray(props.results) ? (props.results.length !== 0 ? <P>{props.results.length} results found</P> : null) : <P>1 result found</P>}
       <CardList />
     </Div>
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    results: state.results
+  }
+}
+
+export default connect(mapStateToProps, {})(App);
